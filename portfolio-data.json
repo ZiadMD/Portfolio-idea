@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "fullName": "Ziad Mohamed Sheashaa",
+    "displayName": "Ziad Mohamed",
+    "navName": "Ziad M Gamal",
+    "title": "AI & Software Engineer",
+    "tagline": "I craft digital experiences that blend beautiful design with powerful functionality. Passionate about creating solutions that make a difference.",
+    "avatar": "https://avatars.githubusercontent.com/u/75117432",
+    "location": "Ismailia, Egypt",
+    "stats": {
+      "projectsCompleted": "6+",
+      "yearsExperience": "1+"
+    }
+  },
+
+  "about": [
+    "I'm a passionate Computer Engineering student with experience creating small software and AI projects. My journey began with a curiosity for how things work, which evolved into a love for building things that work beautifully.",
+    "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community. I believe in the power of clean code, user-centered design, and continuous learning.",
+    "My expertise spans AI technologies, Software and emerging frameworks. I'm particularly passionate about creating accessible, performant applications that provide exceptional user experiences."
+  ],
+
+  "projects": [
+    {
+      "title": "AuthMaster",
+      "description": "A secure login system built with Python's Tkinter library featuring sign-up, sign-in, and SHA-256 password hashing capabilities.",
+      "image": "Projects/AuthMaster.png",
+      "category": "Software",
+      "tags": ["Python", "GUI", "Hashing"],
+      "github": "https://github.com/ZiadMD/AuthMaster",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "Library Management System",
+      "description": "A Library Management System implemented in C++ using doubly linked lists for efficient book record management with sorting and searching capabilities.",
+      "image": "Projects/LMS.png",
+      "category": "Software",
+      "tags": ["C++", "Data Structures", "Algorithms"],
+      "github": "https://github.com/ZiadMD/LMS",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "Qt-Cascade-app",
+      "description": "A desktop object detection application built with Qt and OpenCV using Haar cascade classifiers for real-time computer vision tasks.",
+      "image": "Projects/Qt-Cascade-app.png",
+      "category": "AI",
+      "tags": ["C++", "Qt", "OpenCV", "Computer Vision"],
+      "github": "https://github.com/ZiadMD/Qt-Cascade-app",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "Cat-Dog Classifier",
+      "description": "A PySide6 application using TensorFlow for image classification, featuring a customizable model to distinguish between cats and dogs.",
+      "image": "Projects/cat-dog-classifier.png",
+      "category": "AI",
+      "tags": ["Python", "PySide6", "TensorFlow", "Deep Learning"],
+      "github": "https://github.com/ZiadMD/cat-dog-classifier",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "EVER 5th Generation",
+      "description": "An AI-powered autonomous truck system combining machine learning, PID controllers, and computer vision for intelligent lane changes.",
+      "image": "Projects/EVER.png",
+      "category": "Robotics",
+      "tags": ["Python", "ROS", "Autonomous Driving"],
+      "github": "https://github.com/ZiadMD/EVER_CLoseLoop",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "Numerical Analysis Application",
+      "description": "A Linux-optimized C++17 application implementing numerical analysis algorithms with Qt6 GUI for root finding and curve fitting.",
+      "image": "Projects/NAP.png",
+      "category": "Software",
+      "tags": ["C++", "Qt", "Linux"],
+      "github": "https://github.com/ZiadMD/Numerical-Analysis-project",
+      "demo": null,
+      "status": "completed"
+    },
+    {
+      "title": "NASA 2025 - TERRA Climate Platform",
+      "description": "An educational web platform using Scikit-learn ML models to predict climate patterns from NASA data, featuring a Gemini API chatbot with custom prompt engineering and an interactive game to raise youth climate awareness.",
+      "image": "Projects/NASA-2025.png",
+      "category": "AI",
+      "tags": ["Next.js", "TypeScript", "Scikit-learn", "Gemini API", "Machine Learning"],
+      "github": "https://github.com/ZiadMD/Nasa-2025",
+      "demo": "https://spatuim.vercel.app/",
+      "status": "completed"
+    }
+  ],
+
+  "currentlyWorkingOn": [
+    {
+      "title": "Dr Freud",
+      "description": "An anonymous emotional support app for university students. It gives a safe, judgment-free space to talk, vent, and sort through thoughts using supportive AI, without trying to replace therapy.",
+      "status": "Planning",
+      "progress": 15,
+      "tags": ["Next.js", "TypeScript", "Tailwind CSS", "AI Chat"]
+    }
+  ],
+
+  "experience": [
+    {
+      "role": "AI Technical Member",
+      "organization": "SCU IEEE",
+      "date": "Oct 2023 - Present",
+      "description": "Leading AI/ML initiatives and developing innovative software solutions.",
+      "achievements": [
+        "Instructed more than 5+ AI Sessions",
+        "Made a Book Library App \"Bookish\"",
+        "Making AI Models for detecting cardio diseases"
+      ]
+    },
+    {
+      "role": "Autonomous Software Team Member",
+      "organization": "SCU Racing Team",
+      "date": "Mar 2024 - Oct 2024",
+      "description": "Development of autonomous driving systems.",
+      "achievements": [
+        "Built Autonomous Driving System",
+        "Winning 6th Place in the 2024 EVER"
+      ]
+    },
+    {
+      "role": "Autonomous Software Team Leader",
+      "organization": "SCU Racing Team",
+      "date": "Oct 2024 - Present",
+      "description": "Leading and teaching autonomous software development.",
+      "achievements": []
+    }
+  ],
+
+  "skills": {
+    "programmingLanguages": ["C++", "Python", "SQL", "TypeScript", "C#"],
+    "frameworksAndLibraries": ["ROS2", "OpenCV", "PyTorch", "TensorFlow", "LangChain", "FastAPI"],
+    "toolsAndPlatforms": ["Git & GitHub", "Linux", "Docker", "MongoDB", "CMake"],
+    "softwareEngineering": ["OOP", "SOLID Principles", "Design Patterns"],
+    "aiAndMl": ["Machine Learning", "Deep Learning", "Computer Vision", "Generative AI", "RAG", "Prompt Engineering"]
+  },
+
+  "certifications": [
+    "Zewail City AI",
+    "Huawei HCIA-AI",
+    "ITI AI",
+    "Robotics Corner Software",
+    "Robotics Corner ROS"
+  ],
+
+  "contact": {
+    "email": "ziadmohamedgamal25@gmail.com",
+    "phone": "+201204817795",
+    "location": "Ismailia, Egypt"
+  },
+
+  "socials": {
+    "github": "https://github.com/ZiadMD",
+    "linkedin": "https://www.linkedin.com/in/ziad-sheashaa-89797b15b/"
+  },
+
+  "projectCategories": ["All", "Software", "AI", "Robotics"]
+}
