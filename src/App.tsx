@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { Sparkles, Terminal, BrainCircuit, Code, Sword, Shield, Book, Scroll } from 'lucide-react';
+import { Sparkles, Terminal, BrainCircuit, Code, Sword, Scroll } from 'lucide-react';
 
 // Import JSON data directly
 import portfolioData from '../portfolio-data.json';
+import Loader from './components/Loader';
 
 const FloatingRunesBackground = () => {
   const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚬ', 'ᚱ', 'ᚴ', 'ᚼ', 'ᚾ', 'ᛁ', 'ᛅ', 'ᛋ', 'ᛏ', 'ᛒ', 'ᛘ', 'ᛚ', 'ᛦ'];
@@ -52,8 +53,11 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [heroTl, setHeroTl] = useState<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
+    if (isLoading) return; // Only start Lenis after loading
     // 1. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
       duration: 1.2,
@@ -94,7 +98,12 @@ function App() {
   useEffect(() => {
     // 3. Animations (Awwwards Style Staggered Reveals)
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 } });
+      const tl = gsap.timeline({ 
+        defaults: { ease: 'power4.out', duration: 1.5 },
+        paused: true 
+      });
+
+      setHeroTl(tl);
 
       tl.fromTo('.g-reveal',
         { y: 100, opacity: 0, rotationX: -20 },
@@ -173,6 +182,12 @@ function App() {
     return () => ctx.revert();
   }, [portfolioData]);
 
+  useEffect(() => {
+    if (!isLoading && heroTl) {
+      heroTl.play();
+    }
+  }, [isLoading, heroTl]);
+
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
 
@@ -187,7 +202,8 @@ function App() {
   };
 
   return (
-    <div className="font-sans antialiased bg-arcane-dark min-h-screen selection:bg-arcane-glow selection:text-arcane-dark" ref={containerRef}>
+    <div className={`font-sans antialiased bg-arcane-dark min-h-screen selection:bg-arcane-glow selection:text-arcane-dark ${isLoading ? 'h-screen overflow-hidden' : ''}`} ref={containerRef}>
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
       <FloatingRunesBackground />
 
       {/* Custom Cursor */}
