@@ -93,7 +93,7 @@ function App() {
         lenis.destroy();
       };
     }
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     // 3. Animations (Awwwards Style Staggered Reveals)
