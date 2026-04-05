@@ -42,7 +42,7 @@ export default function Hero() {
           <h1 className="font-serif text-[clamp(4rem,7vw,9rem)] leading-[0.9] font-black uppercase text-white mix-blend-exclusion flex flex-wrap gap-6">
             {portfolioData.meta.title.split(' ').map((word, idx) => (
               <div key={idx} className=" py-2">
-                <span className={`g-reveal inline-block origin-bottom ${['AI', 'Software', '&'].includes(word) ? 'text-transparent bg-clip-text bg-gradient-to-r from-arcane-glow to-arcane-purple glow-text  ' : ''}`}>
+                <span className={`g-reveal inline-block origin-bottom ${['AI', 'Software', '&'].includes(word) ? 'text-transparent bg-clip-text bg-gradient-to-r from-arcane-glow to-arcane-purple glow-text' : ''}`}>
                   {word}
                 </span>
               </div>

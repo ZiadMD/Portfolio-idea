@@ -119,22 +119,34 @@ function App() {
         );
       });
 
-      // Grimoire Row Staggers
-      gsap.utils.toArray<HTMLElement>('.grimoire-row').forEach((row) => {
-        gsap.fromTo(row,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: row,
-              start: 'top 90%',
-              toggleActions: 'play none none none'
-            }
+      // Skill Row Staggers - Magical Materialize (v2.1)
+      gsap.utils.toArray<HTMLElement>('.skill-row-trigger').forEach((row) => {
+        const title = row.querySelector('.skill-title');
+        const pills = row.querySelectorAll('.skill-pill');
+        
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: row,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
           }
-        );
+        });
+
+        if (title) {
+          // Materialize effect: starts deeply blurred, slightly larger, and fades in
+          tl.fromTo(title, 
+            { filter: 'blur(20px)', opacity: 0, scale: 1.1, y: 30 },
+            { filter: 'blur(0px)', opacity: 1, scale: 1, y: 0, duration: 1.5, ease: 'power4.out' }
+          );
+        }
+        
+        if (pills.length) {
+          tl.fromTo(pills,
+            { filter: 'blur(10px)', opacity: 0, scale: 0.8 },
+            { filter: 'blur(0px)', opacity: 1, scale: 1, duration: 0.8, stagger: 0.05, ease: 'back.out(1.5)' },
+            "-=1"
+          );
+        }
       });
 
       // Parallax Image in About
@@ -191,7 +203,7 @@ function App() {
         <Hero />
         <About onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Experience />
-        <Skills />
+        <Skills onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Projects onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Contact onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
       </div>
