@@ -119,22 +119,33 @@ function App() {
         );
       });
 
-      // Grimoire Row Staggers
-      gsap.utils.toArray<HTMLElement>('.grimoire-row').forEach((row) => {
-        gsap.fromTo(row,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: row,
-              start: 'top 90%',
-              toggleActions: 'play none none none'
-            }
+      // Skill Row Staggers - Magical Typing (v2.2)
+      gsap.utils.toArray<HTMLElement>('.skill-row-trigger').forEach((row) => {
+        const titleChars = row.querySelectorAll('.skill-title-char');
+        const pills = row.querySelectorAll('.skill-pill');
+        
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: row,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
           }
-        );
+        });
+
+        if (titleChars.length) {
+          tl.fromTo(titleChars, 
+            { opacity: 0, y: 15, scale: 0.8 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.04, ease: 'back.out(1.5)' }
+          );
+        }
+        
+        if (pills.length) {
+          tl.fromTo(pills,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'expo.out' },
+            "-=0.2"
+          );
+        }
       });
 
       // Parallax Image in About
@@ -191,7 +202,7 @@ function App() {
         <Hero />
         <About onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Experience />
-        <Skills />
+        <Skills onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Projects onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
         <Contact onCursorEnter={handleMouseEnter} onCursorLeave={handleMouseLeave} />
       </div>
