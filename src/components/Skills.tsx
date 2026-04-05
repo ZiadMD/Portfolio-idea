@@ -1,60 +1,126 @@
-import { Scroll } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
 import portfolioData from '../../portfolio-data.json';
 
-export default function Skills() {
+// Magnetic Pill Component for Interactive Hover
+const MagneticPill = ({ children, onCursorEnter, onCursorLeave }: { children: React.ReactNode, onCursorEnter?: () => void, onCursorLeave?: () => void }) => {
+  const magneticRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = magneticRef.current;
+    if (!element) return;
+
+    const xTo = gsap.quickTo(element, "x", { duration: 1, ease: "elastic.out(1, 0.3)" });
+    const yTo = gsap.quickTo(element, "y", { duration: 1, ease: "elastic.out(1, 0.3)" });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { height, width, left, top } = element.getBoundingClientRect();
+      const x = clientX - (left + width / 2);
+      const y = clientY - (top + height / 2);
+      xTo(x * 0.3); // Magnetic pull factor
+      yTo(y * 0.3);
+    };
+
+    const handleMouseLeaveInner = () => {
+      xTo(0);
+      yTo(0);
+      if (onCursorLeave) onCursorLeave();
+    };
+    
+    const handleMouseEnterInner = () => {
+      if (onCursorEnter) onCursorEnter();
+    }
+
+    element.addEventListener("mousemove", handleMouseMove);
+    element.addEventListener("mouseleave", handleMouseLeaveInner);
+    element.addEventListener("mouseenter", handleMouseEnterInner);
+
+    return () => {
+      element.removeEventListener("mousemove", handleMouseMove);
+      element.removeEventListener("mouseleave", handleMouseLeaveInner);
+      element.removeEventListener("mouseenter", handleMouseEnterInner);
+    };
+  }, [onCursorEnter, onCursorLeave]);
+
   return (
-    <section id="skills" className="py-24 px-8 md:px-24 bg-arcane-stone section-reveal relative">
-      <h2 className="font-runic text-center text-3xl md:text-4xl text-arcane-gold tracking-widest mb-4">Arcana & Knowledge</h2>
-      <h3 className="font-serif text-center text-[clamp(2.5rem,6vw,6rem)] text-white leading-none mb-24">THE SPELLBOOK</h3>
+    <div
+      ref={magneticRef}
+      className="relative text-[11px] sm:text-xs uppercase tracking-[0.15em] px-6 py-3 font-medium text-gray-300 transition-colors z-10 hover:text-white group/skill cursor-none"
+    >
+      <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-full group-hover/skill:bg-arcane-glow/10 group-hover/skill:border-arcane-glow/60 transition-colors duration-500" />
+      <span className="relative z-10">{children}</span>
+    </div>
+  );
+};
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16 max-w-7xl mx-auto">
-        {Object.entries(portfolioData.skills).map(([category, skills], index) => {
-          // Formatting camelCase keys
-          const title = category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+export default function Skills({ onCursorEnter, onCursorLeave }: { onCursorEnter?: () => void, onCursorLeave?: () => void }) {
+  const containerRef = useRef<HTMLElement>(null);
 
-          return (
-            <div
-              key={index}
-              className="relative group overflow-hidden border border-white/10 bg-gradient-to-b from-arcane-dark/80 to-arcane-dark/40 pt-16 pb-12 px-6 md:px-8 transition-all duration-700 hover:border-arcane-glow/50 hover:shadow-[0_0_40px_rgba(0,240,255,0.15)] grimoire-row"
-              style={{ borderTopLeftRadius: '120px', borderTopRightRadius: '120px' }}
-            >
+  return (
+    <section id="skills" className="py-32 px-8 md:px-16 lg:px-24 bg-arcane-dark section-reveal relative overflow-hidden" ref={containerRef}>
+      
+      {/* Background Graphic Effect to avoid flatness */}
+      <div className="absolute top-0 right-0 w-full h-[150%] opacity-20 pointer-events-none mix-blend-overlay"
+           style={{ background: 'radial-gradient(circle at 80% 20%, rgba(212,175,55,0.15) 0%, transparent 50%)' }} />
 
-              {/* Background Rotating Rune inside the Arch - Triangles Replaced with Arcane Squares & Orbits */}
-              <div className="absolute top-12 left-1/2 -translate-x-1/2 opacity-5 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none">
-                <svg className="w-56 h-56 animate-[spin_15s_linear_infinite]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
-                  <circle cx="50" cy="50" r="45" strokeDasharray="2 6" className="text-arcane-glow" />
-                  <circle cx="50" cy="50" r="35" className="text-arcane-gold" />
-                  <rect x="25" y="25" width="50" height="50" className="text-arcane-glow" transform="rotate(45 50 50)" />
-                  <rect x="30" y="30" width="40" height="40" className="text-arcane-gold" strokeDasharray="4 4" />
-                </svg>
-              </div>
+      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 max-w-[1400px] mx-auto relative">
+        
+        {/* Left Side: Pinned Context */}
+        <div className="lg:w-1/3 lg:sticky lg:top-40 h-fit 2xl:top-48 z-10">
+          <div className="relative">
+            {/* Minimalist ornamental line */}
+            <div className="w-12 h-px bg-arcane-gold mb-8 opacity-50"></div>
+            
+            <h2 className="font-sans text-xs md:text-sm text-arcane-gold tracking-[0.3em] uppercase mb-4">Arcana & Knowledge</h2>
+            
+            <h3 className="font-serif text-[clamp(3.5rem,6vw,7rem)] text-white leading-[0.9] tracking-tighter mix-blend-difference g-reveal">
+              THE<br/>
+              <span className="italic font-light text-arcane-gold/90">SPELL</span><br/>
+              BOOK
+            </h3>
+            
+            <p className="mt-8 text-gray-400 font-sans max-w-sm text-sm leading-relaxed tracking-wide">
+              A curated grimoire of technologies, languages, and tools mastered through relentless iterations and profound research.
+            </p>
+          </div>
+        </div>
 
-              {/* Top Focal Point */}
-              <div className="relative z-10 flex flex-col items-center mb-10">
-                <div className="w-16 h-16 border border-arcane-gold/30 rounded-full flex items-center justify-center mb-6 overflow-hidden bg-arcane-dark relative group-hover:border-arcane-glow transition-colors duration-500 shadow-[0_0_15px_rgba(212,175,55,0.1)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.3)]">
-                  <div className="absolute inset-0 bg-arcane-gold/10 animate-pulse mix-blend-screen group-hover:bg-arcane-glow/20 transition-colors duration-500"></div>
-                  <Scroll className="w-6 h-6 text-arcane-gold group-hover:text-arcane-glow transition-colors duration-500 relative z-10" />
+        {/* Right Side: Flowing Asymmetric Layout */}
+        <div className="lg:w-2/3 flex flex-col gap-32 md:gap-48 pt-12 lg:pt-32 pb-32">
+          {Object.entries(portfolioData.skills).map(([category, skills], index) => {
+            const title = category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+            const indexFormatted = String(index + 1).padStart(2, '0');
+
+            return (
+              <div key={index} className="skill-row-trigger relative group w-full">
+                
+                {/* Large Number Index */}
+                <span className="absolute -top-12 md:-top-20 -left-6 md:-left-12 text-[clamp(4rem,8vw,10rem)] font-serif font-bold text-white/[0.02] mix-blend-overlay pointer-events-none uppercase tracking-tighter">
+                  {indexFormatted}
+                </span>
+
+                <div className="relative z-10 border-t border-white/10 pt-8 mt-8">
+                  <h4 className="skill-title font-serif text-[clamp(2.5rem,4vw,5rem)] text-white leading-none tracking-tight mb-12 group-hover:text-arcane-glow transition-colors duration-700">
+                    {title}
+                  </h4>
+
+                  <div className="flex flex-wrap gap-4 md:gap-6 items-center">
+                    {skills.map((skill, i) => (
+                      <div className="skill-pill opacity-0 translate-y-8" key={i}>
+                        <MagneticPill onCursorEnter={onCursorEnter} onCursorLeave={onCursorLeave}>
+                          {skill}
+                        </MagneticPill>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h4 className="font-serif text-2xl text-white tracking-wide text-center group-hover:text-arcane-glow transition-colors duration-500 group-hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]">{title}</h4>
-                <div className="w-16 h-px bg-gradient-to-r from-transparent via-arcane-gold to-transparent mt-6 group-hover:via-arcane-glow transition-colors duration-500"></div>
+                
               </div>
+            );
+          })}
+        </div>
 
-              {/* Hexagonal Skill Pills - Removed cursor-default */}
-              <div className="relative z-10 flex flex-wrap justify-center gap-3">
-                {skills.map((skill, i) => (
-                  <span
-                    key={i}
-                    className="relative text-[10px] sm:text-[11px] md:text-xs uppercase tracking-[0.15em] px-4 py-2 font-medium text-gray-400 transition-all z-10 hover:text-white group/skill"
-                  >
-                    <div className="absolute inset-0 bg-white/[0.02] border border-white/10 [clip-path:polygon(10%_0,90%_0,100%_50%,90%_100%,10%_100%,0_50%)] group-hover/skill:bg-arcane-glow/10 group-hover/skill:border-arcane-glow/60 transition-all duration-300" />
-                    <span className="relative z-10">{skill}</span>
-                  </span>
-                ))}
-              </div>
-
-            </div>
-          );
-        })}
       </div>
     </section>
   );
